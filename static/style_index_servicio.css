@@ -1,0 +1,251 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  position: relative; 
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Asegura que el footer se mantenga al final */
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 70px;
+}
+
+.titulo {
+  text-align: center; /* Centra el texto */
+  margin: 20px 0; /* Opcional: agrega un margen superior e inferior para separación */
+}
+
+/* BARRA DE NAVEGACION */
+.navbar {
+  background-color: #117391;
+  padding: 14px 20px;
+  width: 100%;
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  z-index: 1000; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.logo img {
+  width: 120px; 
+  height: auto; 
+}
+
+.nav-links {
+  list-style: none; 
+  display: flex; 
+  margin: 0; 
+  padding: 0; 
+}
+
+.nav-links li {
+  margin: 0 15px; 
+}
+
+.nav-links a {
+  color: white; 
+  text-align: center; 
+  padding: 10px 20px; 
+  text-decoration: none; 
+  font-size: 17px; 
+  border-radius: 5px; 
+}
+
+.nav-links a:hover {
+  background-color: #ddd; 
+  color: black; 
+}
+
+/* CARRUSEL */
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+  background-color: #117391; 
+  padding: 30px; /* Aumenta el padding para expandir el fondo */
+  border-radius: 10px;
+  margin: 60px 20px 20px 20px;
+  max-width: 100%;
+  min-height: 680px; /* Aumenta la altura mínima del fondo del carrusel */
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Ajustar el ancho y permitir que el alto se ajuste */
+.carousel-item {
+  min-height: 550px;
+  flex: 0 0 40%; /* Ajuste para mostrar tres elementos en pantallas grandes */
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  background-color: #ffffff31;
+  border-radius: 4px;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative; /* Para permitir la superposición del texto */
+}
+
+/* Fijar el alto de la imagen para evitar que se desplace */
+.carousel-item img {
+  width: 100%;
+  height: 300px; /* Ajusta este valor para que sea igual al ancho de la imagen */
+  object-fit: cover; /* Mantiene la imagen centrada y recortada en un cuadrado */
+  margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+}
+
+/* Nuevo estilo para el texto*/
+.carousel-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 1.2rem;
+  z-index: 10;
+}
+
+.carousel-item h3 {
+  margin: 10px 0;
+}
+
+.carousel-item ul {
+  list-style: disc;
+  padding-left: 10px;
+  flex-grow: 1; /* Permitir que la lista crezca para ocupar espacio */
+}
+
+.carousel-item ul li {
+  text-align: left;
+}
+
+/* Navegación del carrusel */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.carousel-nav button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #127998;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 10px 0;
+  position: relative; 
+  width: 100%;
+}
+
+/* Media Queries para Responsividad */
+@media screen and (max-width: 600px) {
+
+  .navbar {
+    flex-direction: column; /* Cambiar a columna */
+    align-items: flex-start; /* Alinear a la izquierda */
+  }
+
+  .nav-links {
+    flex-direction: column; /* Cambiar a columna */
+    align-items: flex-start; /* Alinear a la izquierda */
+    margin-top: 10px; /* Espacio entre la navbar y los enlaces */
+  }
+
+  .nav-links li {
+    margin: 5px 0; /* Espacio vertical entre enlaces */
+  }
+
+  .carousel-container {
+    padding: 5px; /* Ajustar el padding del contenedor del carrusel */
+    margin: 0 5px; /* Reducir márgenes laterales */
+  }
+
+  .carousel-inner {
+    flex-wrap: nowrap; /* Evitar que los ítems se envuelvan */
+  }
+
+  .carousel-item {
+    flex: 0 0 100%; /* Cada ítem ocupa el 100% del ancho del carrusel */
+    min-height: 300px; /* Ajustar la altura mínima para mejor visualización */
+  }
+
+  .carousel-nav {
+    position: relative; /* Cambiar a relative para que estén en la misma área */
+    display: flex; /* Asegurarse de que se muestren como un flex container */
+    justify-content: space-between; /* Espacio entre botones */
+    z-index: 10; /* Asegurar que los botones estén encima del contenido */
+    margin-top: 10px; /* Espacio entre el carrusel y los botones */
+  }
+
+  .carousel-nav button {
+    flex: 1; /* Hacer que los botones ocupen el mismo ancho */
+    padding: 10px; /* Ajustar el padding */
+    font-size: 14px; /* Tamaño de fuente */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    margin: 0 5px; /* Espacio entre los botones */
+  }
+
+  h1 {
+    font-size: 20px; /* Ajustar el tamaño del título */
+  }
+
+  .footer {
+    padding: 10px 0; /* Aumentar padding del footer */
+    font-size: 14px; /* Ajustar tamaño de fuente del footer */
+  }
+
+  .titulo {
+    font-size: 24px; /* Ajustar tamaño del título de servicios */
+  }
+}
+
+/* Media Queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .carousel-item {
+    flex: 0 0 80%; /* Aumentar el ancho del ítem en pantallas pequeñas */
+  }
+
+  .carousel-item img {
+    height: 200px; /* Disminuir la altura de las imágenes */
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    flex: 0 0 100%; /* Mostrar un solo ítem a la vez en pantallas muy pequeñas */
+  }
+
+  .carousel-item img {
+    height: 150px; /* Disminuir aún más la altura de las imágenes */
+  }
+}
+

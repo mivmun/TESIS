@@ -1,0 +1,99 @@
+{% extends "inicio/menu_admin_empleado.html" %}
+
+{% block content %}
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #16BFE8;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999999b1;
+    }
+    .btn:hover {
+        background-color: #117391;
+    }
+    .btn:active {
+        background-color: #D7D7D7;
+        box-shadow: 0 2px #666;
+        transform: translateY(2px);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        opacity: 0.95;
+    }
+    table, th, td {
+        border: 1px solid #ffffff;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #ffffff;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin: 10px 0;
+    }
+    /* Media Query para pantallas más pequeñas */
+    @media screen and (max-width: 600px) {
+        .btn {
+            width: 100%;
+            padding: 15px 0;
+            font-size: 18px;
+        }
+        h2 {
+            font-size: 24px;
+        }
+    }
+  </style>
+
+  <h2>Lista de Empleados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo Electrónico</th>
+        <th>Cargo</th>
+        <th>Salario</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for empleado in empleados %}
+        <tr>
+          <td>{{ empleado.nombre }}</td>
+          <td>{{ empleado.apellido }}</td>
+          <td>{{ empleado.correo_electronico }}</td>
+          <td>{{ empleado.cargo }}</td>
+          <td>{{ empleado.salario }}</td>
+          <td>
+            <a href="{% url 'empleado_edit' empleado.pk %}" class="btn">Editar</a>
+            <a href="{% url 'empleado_delete' empleado.pk %}" class="btn">Eliminar</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No hay empleados registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

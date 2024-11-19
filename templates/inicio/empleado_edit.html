@@ -1,0 +1,11 @@
+{% extends "inicio/menu_admin_empleado.html" %}
+
+{% block content %}
+  <h2>{% if object %}Editar{% else %}Crear{% endif %} Empleado</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if object %}Guardar cambios{% else %}Registrar Empleado{% endif %}</button>
+  </form>
+  <a href="{% url 'empleado_list' %}">Volver a la lista de empleados</a>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'reserva/menu_reserva.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calendar-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 1000px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #calendar {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="calendar-container">
+        <h2>Reservas de Clientes</h2>
+        <div id="calendar"></div>
+    </div>
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <!-- Script para renderizar el calendario -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const eventos = {{ eventos|safe }}; // Asegúrate de que los datos lleguen en formato JSON válido
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es', // Español
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: eventos, // Eventos del backend
+                eventClick: function(info) {
+                    alert(info.event.extendedProps.description); // Mostrar descripción en alerta
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}

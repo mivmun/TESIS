@@ -1,0 +1,162 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Menú Cliente{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style_menu_servicio.css' %}">
+    <style>
+        .header-container {
+            background-color: #ffffff;
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-family: 'Arial', sans-serif;
+            color: #117391;
+            margin: 0;
+        }
+        h2 {
+            margin-top: 10px;
+        }
+        .button-63, .button-cerrarsesion {
+            align-items: center;
+            background-image: linear-gradient(144deg, #117391, #16BFE8 50%, #D7D7D7);
+            border: 0;
+            border-radius: 8px;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            display: flex;
+            font-family: Phantomsans, sans-serif;
+            font-size: 18px;
+            justify-content: center;
+            line-height: 1em;
+            min-width: 140px;
+            padding: 19px 24px;
+            text-decoration: none;
+            user-select: none;
+            white-space: nowrap;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding-top: 20px;
+        }
+        .linea-divisoria {
+            width: 40%;
+            height: 3px;
+            background-image: linear-gradient(144deg, #ffffff, #16BFE8 50%, #ffffff);
+            margin: 10px auto;
+        }
+
+        /* Contenedor principal centrado */
+.profile-container {
+    max-width: 800px;  /* Define un ancho máximo */
+    margin: 0 auto;    /* Centra el contenedor horizontalmente */
+    padding: 20px;     /* Espaciado interno */
+    background-color: #f9f9f9;  /* Fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+}
+
+/* Títulos centrados */
+.profile-container h2 {
+    text-align: center;
+    color: #333;  /* Color de texto oscuro */
+    font-size: 24px;  /* Tamaño de fuente */
+    margin-bottom: 10px;  /* Espaciado debajo del título */
+}
+
+/* Estilo de los párrafos */
+.profile-container p {
+    text-align: center;
+    font-size: 16px;  /* Tamaño de fuente */
+    color: #666;  /* Color de texto gris */
+    margin: 5px 0;  /* Espaciado entre los párrafos */
+}
+
+/* Estilo para el formulario dentro del contenedor (si es necesario) */
+.profile-container form {
+    margin-top: 20px; /* Espaciado superior */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos del formulario en columna */
+}
+
+.profile-container form input,
+.profile-container form select,
+.profile-container form textarea {
+    padding: 10px;
+    margin: 10px 0; /* Espaciado entre los campos */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ddd; /* Borde sutil */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.profile-container form button {
+    background-color: #4CAF50;  /* Fondo verde */
+    color: white;  /* Texto blanco */
+    padding: 10px 20px;  /* Espaciado interno */
+    border: none;  /* Sin borde */
+    border-radius: 5px;  /* Bordes redondeados */
+    cursor: pointer;  /* Aparece el cursor de mano */
+    font-size: 16px;  /* Tamaño de fuente */
+    transition: background-color 0.3s ease;
+}
+
+.profile-container form button:hover {
+    background-color: #45a049;  /* Cambia a un verde más oscuro cuando se pasa el cursor */
+}
+
+/* Centrar los botones dentro del contenedor */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>Bienvenidos al menú de clientes CPD</h1>
+    </div>
+
+    <div class="profile-container">
+    <h2>Perfil de {{ user.nombre }}</h2>
+    <p>Datos del Usuario</p>
+    <p>Nombre/apellido: {{ user.nombre }} {{ user.apellido }}</p>
+    <p>RUT: {{ user.rut }}</p>
+    <p>Correo: {{ user.correo_electronico }}</p>
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button-cerrarsesion">Cerrar sesión</button>
+    </form>
+    </div>
+        <div class="linea-divisoria"></div>
+        <!-- Botón de crear reserva centrado con estilo -->
+        <div class="button-container">
+            <form action="{% url 'reserva:crear_reserva' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button-63">Crear Reserva</button>
+            </form>
+            <!-- Botón de ver reservas centrado con estilo -->
+            <a href="{% url 'reserva:reserva_list_clientes' %}?rut={{ user.rut }}">
+                <button type="button" class="button-63">Ver Mis Reservas</button>
+            </a>
+        </div>
+
+</body>
+</html>

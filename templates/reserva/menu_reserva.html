@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas</title>
+    <link rel="stylesheet" href="{% static 'style_menu_servicio.css' %}">
+    <style>
+        .navbar .logo {
+            background-color: #11739151;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar .logo:hover {
+            background-color: #007acc;
+            transform: scale(1.1);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            padding: 10px 15px;
+            color: #117391;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #007acc;
+        }
+
+        .content {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="background-wrap">
+        <div class="bubble x1"></div>
+        <div class="bubble x2"></div>
+        <div class="bubble x3"></div>
+        <div class="bubble x4"></div>
+        <div class="bubble x5"></div>
+        <div class="bubble x6"></div>
+        <div class="bubble x7"></div>
+        <div class="bubble x8"></div>
+        <div class="bubble x9"></div>
+        <div class="bubble x10"></div>
+        <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="520" height="310" style="position: absolute; top: 50%; left: 50%; opacity: 0.7; transform: translate(-50%, -50%); z-index: 1;">
+    </div>
+
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <a href="/menu_empleado" class="logo">
+            <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="60" height="35"/>
+        </a>
+        <a href="{% url 'reserva:calendario_reservas' %}">Calendario </a>
+        <a href="{% url 'reserva:listar_disponibilidad' %}">Listar Disponibilidad</a>
+        <a href="{% url 'reserva:crear_disponibilidad_empleado' %}">Crear Agenda Empleado</a>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content">
+        {% block content %}
+        <!-- Aquí se cargará el contenido dinámico de cada vista -->
+        {% endblock %}
+    </div>
+</body>
+</html>

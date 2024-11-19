@@ -1,0 +1,111 @@
+{% extends "servicio/menu_servicio.html" %}
+
+{% block content %}
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+
+      .service-detail {
+          margin: 20px;
+          padding: 20px;
+          background-color: #f9f9f9d2;
+          border-radius: 8px;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .service-detail h1 {
+          font-size: 24px;
+          margin-bottom: 20px;
+      }
+
+      .service-attribute {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px;
+          margin-bottom: 10px;
+          background-color: #f2f2f2;
+          border-radius: 5px;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-attribute h3 {
+          font-size: 16px;
+          color: #333;
+          margin: 0;
+      }
+
+      .service-attribute p {
+          font-size: 16px;
+          color: #666;
+          margin: 0;
+      }
+
+      .btn {
+          display: inline-block;
+          padding: 6px 16px;
+          font-size: 14px;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          color: #fff;
+          background-color: #16BFE8;
+          border: none;
+          border-radius: 15px;
+          box-shadow: 0 5px #999999b1;
+          margin-right: 10px;
+      }
+
+      .btn:hover {
+          background-color: #117391;
+      }
+
+      .btn:active {
+          background-color: #D7D7D7;
+          box-shadow: 0 2px #666;
+          transform: translateY(2px);
+      }
+
+      
+
+      /* Media Query para pantallas más pequeñas */
+      @media screen and (max-width: 600px) {
+          .btn {
+              width: 100%;
+              padding: 15px 0;
+              font-size: 18px;
+          }
+      }
+  </style>
+
+  <div class="service-detail">
+      <h1>Detalles del Servicio</h1>
+
+      <div class="service-attribute">
+          <h3>Tipo de Servicio</h3>
+          <p>{{ servicio.tipo_servicio }}</p>
+      </div>
+      <div class="service-attribute">
+          <h3>Modalidad del Servicio</h3>
+          <p>{{ servicio.modalidad_servicio }}</p>
+      </div>
+      <div class="service-attribute">
+          <h3>Descripción</h3>
+          <p>{{ servicio.descripcion }}</p>
+      </div>
+      <div class="service-attribute">
+          <h3>Valor del Servicio</h3>
+          <p>{{ servicio.valor }}</p>
+      </div>
+      <div class="service-attribute">
+          <h3>Duración del Servicio</h3>
+          <p>{{ servicio.duracion }}</p>
+      </div>
+
+      <a href="{% url 'servicio_update' servicio.pk %}" class="btn">Editar</a>
+      <a href="{% url 'servicio_delete' servicio.pk %}" class="btn delete-btn">Eliminar</a>
+      <a href="{% url 'servicio_list' %}" class="btn">Volver al Menú</a>
+  </div>
+{% endblock %}

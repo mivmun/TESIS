@@ -1,0 +1,85 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Detalle de Stock{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            opacity: 0.95;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        /* Media Query para pantallas más pequeñas */
+        @media screen and (max-width: 600px) {
+            .btn {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 18px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <h1>Detalle de Stock</h1>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <td>{{ stock.id_producto.nombre_producto }}</td>
+        </tr>
+        <tr>
+            <th>Servicio Asociado</th>
+            <td>{{ stock.id_servicio.tipo_servicio }}</td>
+        </tr>
+        <tr>
+            <th>Cantidad Necesaria</th>
+            <td>{{ stock.cantidad_necesaria }}</td>
+        </tr>
+    </table>
+    <a href="{% url 'stock_list' %}" class="btn">Volver a la Lista de Stock</a>
+{% endblock %}

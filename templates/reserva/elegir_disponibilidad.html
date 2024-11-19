@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Elegir Disponibilidad</title>
+    <style>
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .availability-button {
+            padding: 10px 20px;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .availability-button:hover {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona un Horario</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="button-container">
+            {% for choice in form.agenda.field.queryset %}
+            <button class="availability-button" name="agenda" value="{{ choice.id }}">
+                {{ choice.fecha }} - {{ choice.hora }}
+            </button>
+            {% endfor %}
+        </div>
+    </form>
+</body>
+</html>

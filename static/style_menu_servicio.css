@@ -1,0 +1,147 @@
+/* Estilos generales */
+body {
+    background: radial-gradient(circle, #117391, #D7D7D7);
+    color: #000000;
+    font: 100% Lato, Arial, Sans Serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Estilo de los botones */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #f3f3f3;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+}
+.btn:hover {
+    background-color: #ffffff;
+}
+.btn:active {
+    background-color: #ffffff;
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);
+}
+
+/* Barra de navegación superior */
+.navbar {
+    overflow: hidden;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4px 0;
+    z-index: 1;
+    flex-wrap: wrap;
+}
+.navbar a {
+    float: left;
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 12px 17px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+.navbar a:hover {
+    background-color: #0099ff;
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Contenido principal */
+.content {
+    margin-top: 60px; /* Ajusta según la altura de la barra de navegación */
+    padding: 20px;
+}
+
+/* Estilo para tablas */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 600px) {
+    .navbar {
+        padding: 3px 0;
+    }
+    .navbar a {
+        padding: 6px 0;
+        font-size: 10px;
+    }
+    .btn {
+        width: 100%;
+        padding: 15px 0;
+        font-size: 18px;
+    }
+    .content {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* CSS de las burbujas animadas */
+#background-wrap {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: -1;
+}
+
+@keyframes animateBubble {
+    0% { margin-top: 1000px; }
+    100% { margin-top: -100%; }
+}
+@keyframes sideWays {
+    0% { margin-left: 0px; }
+    100% { margin-left: 50px; }
+}
+
+.bubble {
+    border-radius: 50%;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
+    height: 200px;
+    position: absolute;
+    width: 200px;
+}
+.bubble:after {
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    box-shadow: inset 0 20px 30px rgba(255, 255, 255, 0.3);
+    content: "";
+    height: 180px;
+    left: 10px;
+    position: absolute;
+    width: 180px;
+}
+
+/* Bubbles Animations */
+.x1 { animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate; left: -5%; top: 5%; transform: scale(0.6); }
+.x2 { animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate; left: 5%; top: 80%; transform: scale(0.4); }
+.x3 { animation: animateBubble 28s linear infinite, sideWays 2s ease-in-out infinite alternate; left: 10%; top: 40%; transform: scale(0.7); }
+.x4 { animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate; left: 20%; top: 0; transform: scale(0.3); }
+.x5 { animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate; left: 30%; top: 50%; transform: scale(0.5); }
+.x6 { animation: animateBubble 21s linear infinite, sideWays 2s ease-in-out infinite alternate; left: 50%; top: 0; transform: scale(0.8); }
+.x7 { animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate; left: 65%; top: 70%; transform: scale(0.4); }
+.x8 { animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate; left: 80%; top: 10%; transform: scale(0.3); }
+.x9 { animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate; left: 90%; top: 50%; transform: scale(0.6); }
+.x10 { animation: animateBubble 26s linear infinite, sideWays 2s ease-in-out infinite alternate; left: 80%; top: 80%; transform: scale(0.3); }

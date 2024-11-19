@@ -1,0 +1,230 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Detalles del Pedido{% endblock %}
+
+{% block content %}
+    <style>
+        /* Estilos previos */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border: 1px solid #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+            opacity: 0.95;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor personalizado */
+        .create-product-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .create-product-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .create-product-container form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .create-product-container form input,
+        .create-product-container form select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .create-product-container form button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+            margin: 10px 0;
+        }
+
+        .create-product-container form button:hover {
+            background-color: #117391;
+        }
+
+        .create-product-container form button:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+    </style>
+
+    <div class="create-product-container">
+        <h1>Detalles del Pedido</h1>
+
+        <!-- Formulario de creación de pedido -->
+        <form method="post" id="pedidoForm" onsubmit="return showPopup()">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>ID del Producto</th>
+                    <td>{{ form.id_producto }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad</th>
+                    <td>{{ form.cantidad }}</td>
+                </tr>
+                <tr>
+                    <th>Monto del Producto</th>
+                    <td>{{ form.monto_producto }}</td>
+                </tr>
+                <tr>
+                    <th>Empleado</th>
+                    <td>{{ form.empleado }}</td>
+                </tr>
+            </table>
+            <button type="submit" class="btn">Crear</button>
+        </form>
+        <a href="{% url 'pedido_list' %}" class="btn">Volver a la Lista de Pedidos</a>
+
+        <!-- Celdas de búsqueda para la lista de productos -->
+        <div class="search-container">
+            <input type="text" id="searchById" placeholder="Buscar por ID de Producto..." onkeyup="filterTable()">
+            <input type="text" id="searchByName" placeholder="Buscar por Nombre de Producto..." onkeyup="filterTable()">
+        </div>
+
+        <!-- Tabla de lista de productos -->
+        <div>
+            <h2>Lista de Productos</h2>
+            <table id="productTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Producto</th>
+                        <th>Unidad de Medida</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre_producto }}</td>
+                        <td>{{ producto.unidad_medida }}</td>
+                        <td>{{ producto.cantidad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showPopup() {
+            alert('Pedido ingresado correctamente');
+            return true; // Permite que el formulario se envíe
+        }
+
+        // Función para filtrar la tabla por ID y Nombre
+        function filterTable() {
+            var idInput = document.getElementById("searchById").value.toUpperCase();
+            var nameInput = document.getElementById("searchByName").value.toUpperCase();
+            var table = document.getElementById("productTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var idTd = tr[i].getElementsByTagName("td")[0];
+                var nameTd = tr[i].getElementsByTagName("td")[1];
+
+                if (idTd && nameTd) {
+                    var idText = idTd.textContent || idTd.innerText;
+                    var nameText = nameTd.textContent || nameTd.innerText;
+
+                    if (
+                        idText.toUpperCase().indexOf(idInput) > -1 &&
+                        nameText.toUpperCase().indexOf(nameInput) > -1
+                    ) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}

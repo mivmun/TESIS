@@ -1,0 +1,74 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Actualizar Producto{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border: 1px solid #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        /* Media Query para pantallas más pequeñas */
+        @media screen and (max-width: 600px) {
+            .btn {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 18px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <h1>Actualizar Producto</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Guardar cambios</button>
+    </form>
+    <a href="{% url 'producto_list' %}" class="btn">Volver a la lista</a>
+{% endblock %}

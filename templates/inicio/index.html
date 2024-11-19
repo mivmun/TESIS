@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto</title>
+    <link rel="stylesheet" href="{% static 'style_index.css' %}">
+    <style>
+        
+        /* Asegúrate de que el CSS para el carrusel esté aquí */
+        .carousel-item {
+            display: none; /* Oculta todas las imágenes por defecto */
+        }
+
+        .carousel-item.active {
+            display: block; /* Muestra solo la imagen activa */
+        }
+
+        .carousel {
+            width: calc(100% - 34px); /* Resta el margen total (20px a cada lado) */
+            margin: 0 20px; /* Márgenes a la izquierda y derecha */
+            max-width: 1200px; /* Ancho máximo del carrusel */
+            margin-left: auto; /* Centra el carrusel */
+            margin-right: auto; /* Centra el carrusel */
+        }
+
+        .carousel-item img {
+            width: 100%; /* Hace que la imagen ocupe el 100% del ancho del contenedor */
+            height: auto; /* Mantiene la proporción de la imagen */
+            display: block; /* Elimina el espacio en la parte inferior de la imagen */
+        }
+
+        /* Estilos para el Mission Box */
+        .mission-container {
+            margin: 25px 80px; /* Márgenes igual al carrusel */
+            padding: 20px;
+            background-color: #117391ab ;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .mission-container h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .mission-container p {
+            font-size: 1.2rem;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        .mission-container:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+        }
+
+        /* Estilos para las tarjetas */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px; /* Aumenta el espacio entre las tarjetas */
+            max-width: 1000px; /* Ajusta el ancho máximo del contenedor */
+            width: 100%;
+            margin: 40px auto;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            padding-bottom: 60px;
+            height: 250px; /* Ajusta la altura para hacerlas más pequeñas */
+            width: 100%; /* Hace que las tarjetas ocupen el ancho completo de la columna */
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-text {
+            position: absolute;
+            bottom: 10px; /* Ajuste inferior */
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Aumentar opacidad para una mejor visibilidad */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1; /* Mantiene el formato 1:1 */
+            object-fit: cover; /* Ajusta la imagen para que ocupe todo el contenedor sin deformarse */
+        }
+
+        /* Footer fixed en la parte inferior sin cubrir el contenido */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #D7D7D7;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .social-icons a:hover {
+            color: #117391;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        iframe {
+            border: none; /* Eliminar el borde */
+            display: block; /* Asegurarse de que sea un bloque */
+        }
+
+
+        @media (max-width: 768px) {
+            .navbar {
+              flex-direction: column;
+              align-items: flex-start;
+              padding: 10px; /* Espacio ajustado para pantallas pequeñas */
+            }
+            
+            .nav-links {
+              flex-direction: column;
+              align-items: flex-start;
+              margin-top: 10px;
+            }
+            
+            .nav-links li {
+              margin: 5px 0;
+            }
+            
+            .carousel {
+              width: calc(100% - 20px); /* Reducción de márgenes para mejor ajuste */
+              margin: 0 10px;
+              height: 250px; /* Altura reducida para optimizar espacio */
+            }
+            
+            .carousel-caption {
+              font-size: 14px; /* Tamaño de texto reducido */
+              padding: 10px;
+            }
+            
+            .mission-container {
+              margin: 20px 10px;
+              padding: 15px;
+            }
+            
+            .container {
+              grid-template-columns: 1fr;
+              gap: 20px;
+              margin: 20px 20px;
+            }
+            
+            .card {
+              height: 100px; /* Altura reducida para pantallas pequeñas */
+              font-size: 10px;
+            }
+            
+            footer {
+              padding: 10px;
+              font-size: 14px;
+            }
+            
+            .button {
+              padding: 1em 2em; /* Ajuste del tamaño del botón */
+              font-size: 14px;
+            }
+          }
+            .card h2 {
+              font-size: 12px; /* Tamaño reducido de la fuente para pantallas pequeñas */
+              margin: 10px 0; /* Espaciado adecuado */
+              padding: 0 5px; /* Añadir un pequeño padding */
+          }
+
+          iframe {
+            height: 250px; /* Reducir la altura para pantallas pequeñas */
+          }
+          
+          @media (max-width: 600px) {
+            .navbar {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+            .nav-links {
+              flex-direction: column;
+              align-items: flex-start;
+              margin-top: 10px;
+            }
+            .nav-links li {
+              margin: 5px 0;
+            }
+            .carousel {
+              width: calc(100% - 34px);
+              margin: 0 10px;
+              height: 250px;
+            }
+            .mission-container {
+              margin: 20px 10px;
+              padding: 15px;
+            }
+            .container {
+              grid-template-columns: 1fr;
+              gap: 20px;
+              margin: 20px 20px;
+            }
+            .card {
+              height: 100px;
+              font-size: 10px;
+            }
+            footer {
+              padding: 10px;
+              font-size: 14px;
+            }
+            .card h2 {
+              font-size: 12px; /* Tamaño reducido de la fuente para pantallas pequeñas */
+              margin: 10px 0; /* Espaciado adecuado */
+              padding: 0 5px; /* Añadir un pequeño padding */
+            }
+
+            iframe {
+                height: 250px; /* Reducir la altura para pantallas pequeñas */
+            }
+          }
+          
+          
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="120" height="80"/>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="{% url 'index_servicio' %}">Services</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+    <br><br><br><br>
+    <h1 class="titulo">Conócenos...</h1> 
+
+    <div id="myCarousel" class="carousel">
+        <div class="carousel-inner">
+            <!-- IMAGEN 1 -->
+            <div class="carousel-item active">
+                <img src="{% static 'imagen_4.jpg' %}" alt="Image 1" >
+                <div class="carousel-caption">
+                    <h2>¿Necesitas un lavado básico?</h2>
+                    <p>Conoce nuestro servicio bronce.</p>
+                </div>
+            </div>
+            <!-- IMAGEN 2 -->
+            <div class="carousel-item">
+                <img src="{% static 'imagen_5.jpg' %}" alt="Image 2">
+                <div class="carousel-caption">
+                    <h2>¿Necesitas un servicio más profesional?</h2>
+                    <p>Conoce nuestro servicio premium</p>
+                </div>
+            </div>
+            <!-- IMAGEN 3 -->
+            <div class="carousel-item">
+                <img src="{% static 'imagen_6.jpg' %}" alt="Image 3">
+                <div class="carousel-caption">
+                    <h2>¿Realmente amas tu vehículo?</h2>
+                    <p>Conoce nuestro servicio gold y otros servicios asociados</p>
+                </div>
+            </div>
+        </div>
+        <!-- Botones de navegación del carrusel -->
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+    </div>
+
+    <!-- Misión de la Empresa -->
+    <div class="mission-container">
+        <h1>Nuestra Misión</h1>
+        <p>
+            Nuestra misión es ofrecer servicios de calidad que brinden satisfacción a nuestros clientes, asegurándonos de cumplir con los más altos estándares de atención y cuidado en cada uno de los sectores atendidos.
+        </p>
+    </div>
+    
+    <hr>
+<!-- mapa -->
+    <h2>Consulta por tu sector</h2>
+    <iframe src="https://www.google.com/maps/d/u/1/embed?mid=1GI7BvVWiPEBewJFSpTCr9v4qCKXxekI&ehbc=2E312F" width="800" ></iframe>
+    <!-- Sección de tarjetas -->
+    <h1 class="titulo">Car Premium Detail te ofrece</h1> 
+    <div class="container">
+        <div class="card">
+            <img src="{% static 'imagen_3.jpg' %}" alt="Outdoor CCTV">
+            <div class="card-text">
+                <h2>Calidad</h2>
+                <p>Productos certificados</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'imagen_1.jpg' %}" alt="Temperature Controller">
+            <div class="card-text">
+                <h2>Compromiso</h2>
+                <p>Garantizar un buen servicio</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'imagen_7.jpg' %}" alt="Tracking">
+            <div class="card-text">
+                <h2>Especialización</h2>
+                <p>Certificados en tecnicas de trabajo especificas</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'imagen_8.jpg' %}" alt="Auto Control">
+            <div class="card-text">
+                <h2>Detail</h2>
+                <p>Preocupacion en cada detalle</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'imagen_9.jpg' %}" alt="Motion Sensor">
+            <div class="card-text">
+                <h2>Variedad</h2>
+                <p>Servicios para todo presupuesto</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'imagen_10.jpg' %}" alt="Heating Plan">
+            <div class="card-text">
+                <h2>Objetivos</h2>
+                <p>Superar tus expectativas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer con íconos sociales -->
+    <footer>
+        <p>© 2023 Mi Proyecto. Todos los derechos reservados.</p>
+        <div class="social-icons">
+            <a href="https://api.whatsapp.com/send/?phone=%2B56968068141&text&type=phone_number&app_absent=0" target="_blank">
+                <img src="{% static 'Whatsapp.png' %}" alt="WhatsApp" width="30" height="30">
+            </a>
+            <a href="https://www.instagram.com/carpremiumdetail?utm_source=ig_web_button_share_sheet&igshid=ZDNlZDc0MzIxNw==" target="_blank">
+                <img src="{% static 'instagram.png' %}" alt="Instagram" width="30" height="30">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Incluye el archivo JavaScript -->
+    <script src="{% static 'carousel.js' %}"></script>
+</body>
+</html>

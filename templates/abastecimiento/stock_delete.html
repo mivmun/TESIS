@@ -1,0 +1,79 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Eliminar Stock{% endblock %}
+
+{% block content %}
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+
+      .delete-stock-container {
+          margin: 20px;
+          padding: 20px;
+          background-color: #f9f9f9d2;
+          border-radius: 8px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          text-align: center;
+      }
+
+      .delete-stock-container h1 {
+          font-size: 24px;
+          color: #333;
+          margin-bottom: 20px;
+      }
+
+      .delete-stock-container p {
+          font-size: 16px;
+          color: #666;
+          margin-bottom: 30px;
+      }
+
+      .btn {
+          display: inline-block;
+          padding: 10px 20px;
+          font-size: 14px;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          color: #fff;
+          background-color: #16BFE8;
+          border: none;
+          border-radius: 15px;
+          box-shadow: 0 5px #999999b1;
+          margin: 5px;
+      }
+
+      .btn:hover {
+          background-color: #117391;
+      }
+
+      .btn:active {
+          background-color: #D7D7D7;
+          box-shadow: 0 2px #666;
+          transform: translateY(2px);
+      }
+
+      /* Media Query para pantallas más pequeñas */
+      @media screen and (max-width: 600px) {
+          .btn {
+              width: 100%;
+              padding: 12px;
+              font-size: 16px;
+          }
+      }
+  </style>
+
+  <div class="delete-stock-container">
+      <h1>Eliminar Stock</h1>
+      <p>¿Estás seguro de que quieres eliminar el stock de "{{ stock.id_producto.nombre_producto }}" asociado al servicio "{{ stock.id_servicio.tipo_servicio }}" ?</p>
+      <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Sí, eliminar</button>
+      </form>
+      <a href="{% url 'stock_list' %}" class="btn">No, volver a la lista</a>
+  </div>
+{% endblock %}

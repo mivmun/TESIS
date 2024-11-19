@@ -1,0 +1,87 @@
+{% extends "servicio/menu_servicio.html" %}
+
+{% block content %}
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .create-service-container {
+        margin: 20px;
+        padding: 20px;
+        background-color: #f9f9f9d2;
+        border-radius: 8px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .create-service-container h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .create-service-container form {
+        width: 100%;
+        text-align: left;
+    }
+
+    .create-service-container form input,
+    .create-service-container form select,
+    .create-service-container form textarea {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .create-service-container form button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #16BFE8;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999999b1;
+        margin: 10px 0;
+    }
+
+    .create-service-container form button:hover {
+        background-color: #117391;
+    }
+
+    .create-service-container form button:active {
+        background-color: #D7D7D7;
+        box-shadow: 0 2px #666;
+        transform: translateY(2px);
+    }
+
+    /* Media Query para pantallas más pequeñas */
+    @media screen and (max-width: 600px) {
+        .create-service-container form button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+    }
+  </style>
+
+  <div class="create-service-container">
+    <h2>Crear Servicio</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar Servicio</button>
+    </form>
+  </div>
+{% endblock %}

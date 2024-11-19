@@ -1,0 +1,130 @@
+{% extends "servicio/menu_servicio.html" %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .service-list {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px; /* Limita el tamaño máximo del contenedor */
+            margin-left: auto; /* Centra el contenedor */
+            margin-right: auto; /* Centra el contenedor */
+        }
+
+        .service-list h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .service-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-details {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+
+        .btn:hover {
+            background-color: #117391;
+        }
+
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+
+        .view-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .edit-btn {
+            background-color: #16BFE8 ;
+            color: #fff;
+        }
+
+        .delete-btn {
+            background-color: #16BFE8 ;
+            color: #fff;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        
+
+        /* Media Query para pantallas más pequeñas */
+        @media screen and (max-width: 600px) {
+            .btn {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 18px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <div class="service-list">
+        <h2>Lista de Servicios</h2>
+        {% if servicios %}
+            <ul>
+                {% for servicio in servicios %}
+                    <li class="service-item">
+                        <div class="service-details">
+                            <strong>{{ servicio.tipo_servicio }}</strong>
+                        </div>
+                        <div class="service-actions">
+                            <a href="{% url 'servicio_detail' servicio.pk %}" class="btn view-btn">Ver</a>
+                            <a href="{% url 'servicio_update' servicio.pk %}" class="btn edit-btn">Editar</a>
+                            <a href="{% url 'servicio_delete' servicio.pk %}" class="btn delete-btn">Eliminar</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay servicios disponibles.</p>
+        {% endif %}
+    </div>
+{% endblock %}

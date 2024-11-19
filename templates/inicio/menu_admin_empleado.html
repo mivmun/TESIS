@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración de Empleados</title>
+    <link rel="stylesheet" href="{% static 'style_menu_servicio.css' %}"> <!-- Archivo CSS externo -->
+    <style>
+
+        .navbar .logo {
+            background-color: #11739151 ;         
+            border-radius: 8px;          
+            transition: background-color 0.3s ease, transform 0.3s ease;  
+        }
+        
+        .navbar .logo:hover {
+            background-color: #007acc;  /* Color de fondo cuando pasa el cursor */
+            transform: scale(1.1);       /* Efecto de agrandar el logo al pasar el cursor */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="background-wrap">
+        <div class="bubble x1"></div>
+        <div class="bubble x2"></div>
+        <div class="bubble x3"></div>
+        <div class="bubble x4"></div>
+        <div class="bubble x5"></div>
+        <div class="bubble x6"></div>
+        <div class="bubble x7"></div>
+        <div class="bubble x8"></div>
+        <div class="bubble x9"></div>
+        <div class="bubble x10"></div>
+        <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="520" height="310" style="position: absolute; top: 50%; left: 50%; opacity: 0.7; transform: translate(-50%, -50%); z-index: 1;">
+    </div>
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <a href="/menu_empleado" class="logo">
+            <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="60" height="35"/>
+        </a>
+        <a href="{% url 'empleado_list' %}">Listar Empleados</a>
+        <a href="{% url 'empleado_create' %}">Crear Empleado</a>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content">
+        {% block content %}
+        <!-- Aquí se cargará el contenido dinámico de cada vista (crear, editar, listar, etc.) -->
+        {% endblock %}
+    </div>
+</body>
+</html>

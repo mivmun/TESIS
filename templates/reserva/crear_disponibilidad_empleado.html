@@ -1,0 +1,206 @@
+{% extends 'reserva/menu_reserva.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+
+        .btn:hover {
+            background-color: #117391;
+        }
+
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+
+        .availability-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .availability-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .availability-container form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .availability-container form input,
+        .availability-container form select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Estilo para los días y horas */
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #16BFE8;
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 18px;
+            width: 140px;
+            height: 50px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-item:hover {
+            background-color: #117391;
+        }
+
+        .option-item input {
+            width: 25px; /* Aumenta el tamaño del checkbox */
+            height: 25px;
+            margin-right: 8px; /* Espacio entre el checkbox y el texto */
+        }
+
+        .option-item input:checked + label {
+            background-color: #D7D7D7;
+            color: black;
+            transform: scale(1.05);
+            font-weight: bold;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-group label {
+            margin: 0;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+
+    <div class="availability-container">
+        <h2>Definir Disponibilidad Semanal</h2>
+        <form method="post" id="disponibilidad-form">
+            {% csrf_token %}
+            <br>
+            <!-- Campo de RUT y Botón para Validar -->
+            <div class="mb-3">
+                {{ form.rut.label_tag }}
+                <div class="input-group">
+                    {{ form.rut }}
+                    <button type="button" id="validar-rut-btn" class="btn">Validar RUT</button>
+                    <br>
+                </div>
+                <small id="rut-validation-message" class="form-text"></small>
+            </div>
+            <br>
+            <br>
+            <div class="mb-3">
+                {{ form.fecha_inicio.label_tag }}
+                {{ form.fecha_inicio }}
+            </div>
+
+            <!-- Días de la semana -->
+            <div class="mb-3">
+                <h4>Días de la semana</h4>
+                <div class="option-group">
+                    {% for checkbox in form.dias %}
+                        <div class="option-item">
+                            {{ checkbox }}
+                            <label for="{{ checkbox.id_for_label }}"></label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Horas disponibles -->
+            <div class="mb-3">
+                <h4>Horas disponibles</h4>
+                <div class="option-group">
+                    {% for checkbox in form.horas %}
+                        <div class="option-item">
+                            {{ checkbox }}
+                            <label for="{{ checkbox.id_for_label }}"></label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn">Guardar Disponibilidad</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('validar-rut-btn').addEventListener('click', function() {
+            const rutField = document.querySelector('input[name="rut"]');
+            const rut = rutField.value;
+            const messageField = document.getElementById('rut-validation-message');
+
+            if (!rut) {
+                messageField.textContent = "Por favor, ingrese un RUT.";
+                messageField.className = "form-text text-danger";
+                return;
+            }
+
+            fetch("{% url 'reserva:validar_rut_empleado' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ rut: rut })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    messageField.textContent = data.message;
+                    messageField.className = "form-text text-success";
+                } else {
+                    messageField.textContent = data.message;
+                    messageField.className = "form-text text-danger";
+                }
+            })
+            .catch(error => {
+                messageField.textContent = "Ocurrió un error al validar el RUT.";
+                messageField.className = "form-text text-danger";
+            });
+        });
+    </script>
+{% endblock %}
+

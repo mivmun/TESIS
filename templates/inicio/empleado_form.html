@@ -1,0 +1,101 @@
+{% extends "inicio/menu_admin_empleado.html" %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+
+        /* Contenedor personalizado */
+        .create-employee-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .create-employee-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .create-employee-container form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .create-employee-container form input,
+        .create-employee-container form select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .create-employee-container form button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+            margin: 10px 0;
+        }
+
+        .create-employee-container form button:hover {
+            background-color: #117391;
+        }
+
+        .create-employee-container form button:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+    </style>
+
+    <div class="create-employee-container">
+        <h2>Crear Nuevo Empleado</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrar Empleado</button>
+        </form>
+        <a href="{% url 'empleado_list' %}" class="btn">Volver a la Lista de Empleados</a>
+    </div>
+{% endblock %}

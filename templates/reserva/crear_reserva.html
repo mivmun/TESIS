@@ -1,0 +1,216 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Reserva</title>
+    <link rel="stylesheet" href="{% static 'style_menu_servicio.css' %}">
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Contenedor del encabezado */
+        .header-container {
+            background-color: #117391;
+            padding: 15px 0;
+            color: #ffffff;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .profile-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h2,
+        .profile-container h3 {
+            text-align: center;
+            color: #117391;
+            margin-bottom: 20px;
+        }
+
+        .profile-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Calendario */
+        .calendar-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .calendar-container input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        /* Lista de horas disponibles */
+        .horas-container {
+            margin: 20px 0;
+        }
+
+        .horas-container h4 {
+            color: #117391;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .horas-container .hora-item {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #e6f7ff;
+            border: 1px solid #16BFE8;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .horas-container .hora-item:hover {
+            background-color: #117391;
+            color: white;
+            border-color: #0a5f6f;
+        }
+
+        /* Botones */
+        .button-63 {
+            background-color: #117391;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .button-63:hover {
+            background-color: #0a5f6f;
+        }
+
+        .button-back {
+            background-color: #cccccc;
+            color: #333333;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-back:hover {
+            background-color: #aaaaaa;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 15px;
+            }
+
+            .header-container h1 {
+                font-size: 22px;
+            }
+
+            .horas-container .hora-item {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>Crear Reserva</h1>
+    </div>
+
+    <div class="profile-container">
+        <h2>Bienvenido al formulario de Reserva</h2>
+
+        <form method="POST" id="form_reserva">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <!-- Selección de fecha -->
+            <div class="calendar-container">
+                <h3>Elige una Fecha</h3>
+                <input type="date" id="fecha_disponible" name="fecha" required>
+            </div>
+
+            <!-- Horas disponibles -->
+            <div class="horas-container">
+                <h4>Horas Disponibles</h4>
+                <div id="horas_disponibles">
+                    <p>Selecciona una fecha para ver las horas disponibles.</p>
+                </div>
+            </div>
+
+            <!-- Botón para enviar el formulario -->
+            <button type="submit" class="button-63">Crear Reserva</button>
+
+            <!-- Botón para regresar -->
+            <button type="button" onclick="window.history.back()" class="button-back">Volver</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript para manejar las fechas y horas disponibles
+        const fechaInput = document.getElementById('fecha_disponible');
+        const horasDiv = document.getElementById('horas_disponibles');
+
+        fechaInput.addEventListener('change', function () {
+            const fechaSeleccionada = this.value;
+
+            // Solicitar horas disponibles para la fecha seleccionada
+            fetch(`/horas_disponibles/?fecha=${fechaSeleccionada}`)
+                .then(response => response.json())
+                .then(data => {
+                    horasDiv.innerHTML = '';
+
+                    if (data.horas && data.horas.length > 0) {
+                        data.horas.forEach(hora => {
+                            const horaDiv = document.createElement('div');
+                            horaDiv.textContent = hora;
+                            horaDiv.classList.add('hora-item');
+                            horaDiv.addEventListener('click', function () {
+                                alert(`Seleccionaste la hora: ${hora}`);
+                                // Aquí puedes manejar la selección de hora
+                            });
+                            horasDiv.appendChild(horaDiv);
+                        });
+                    } else {
+                        horasDiv.innerHTML = '<p>No hay horas disponibles para esta fecha.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cargar las horas disponibles:', error);
+                    horasDiv.innerHTML = '<p>Hubo un error al cargar las horas disponibles.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar</title>
+    <style>
+        /* Fondo y estilos generales */
+        body {
+            background-color: #D7D7D7;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Contenedor de las burbujas */
+        .bubble-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Estilo de cada burbuja */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: rise 10s infinite ease-in-out;
+        }
+
+        /* Animación de burbujas */
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Varias burbujas con diferentes tamaños y posiciones */
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 12s;
+        }
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 25%;
+            animation-duration: 9s;
+            animation-delay: 2s;
+        }
+        .bubble:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            left: 40%;
+            animation-duration: 14s;
+            animation-delay: 4s;
+        }
+        .bubble:nth-child(4) {
+            width: 30px;
+            height: 30px;
+            left: 55%;
+            animation-duration: 8s;
+            animation-delay: 6s;
+        }
+        .bubble:nth-child(5) {
+            width: 50px;
+            height: 50px;
+            left: 70%;
+            animation-duration: 10s;
+            animation-delay: 8s;
+        }
+        .bubble:nth-child(6) {
+            width: 25px;
+            height: 25px;
+            left: 85%;
+            animation-duration: 11s;
+            animation-delay: 10s;
+        }
+
+        /* Estilos del contenedor del formulario */
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #000000;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #aeaeaea2;
+            font-size: 1em;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+        label {
+            font-weight: bold;
+            color: #117391;
+            margin-top: 10px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            border: 1px solid #16BFE8;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #117391;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #16BFE8;
+        }
+        
+        .back-button {
+            background-color: #16BFE8;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: list-item;
+            font-size: 1em;
+        }
+        
+        .back-button:hover {
+            background-color: #117391;
+        }
+
+        .back-button-empleado {
+            background-color: #117391;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: list-item;
+            font-size: 1em;
+        }
+
+        .back-button-empleado:hover {
+            background-color: #8d9b9f;
+        }
+
+        .linea-divisoria {
+            width: 50%; /* Ajusta el ancho según el tamaño deseado */
+            height: 2px; /* El grosor de la línea */
+            background-color: #117391; /* Color de la línea */
+            margin: 20px auto; /* Centra la línea y agrega margen vertical */
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de burbujas en bucle infinito -->
+    <div class="bubble-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="login-container">
+        <h1>Bienvenidos Clientes</h1>
+        <h3>Si no tienes cuenta, te invitamos a registrarte en el boton inferior</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Ingresar</button>
+        </form>
+        <div class="linea-divisoria"></div>
+        <a href="/login_empleado" class="back-button-empleado">Ingreso Empleados</a>   
+        <a href="/" class="back-button">Volver a Inicio</a>
+        <a href="/registro" class="back-button">Registrate</a>      
+    </div>
+    
+</body>
+</html>

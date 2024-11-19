@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú Empleado</title>
+    <link rel="stylesheet" href="{% static 'style_menu_servicio.css' %}">
+
+    <style>
+        /* Contenedor de header para el h1 */
+        .header-container {
+            background-color: #ffffff; /* Fondo blanco */
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            margin-bottom: 30px; /* Espacio debajo del header */
+            text-align: center;
+        }
+
+        /* Estilo del h1 */
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 2em;
+            color: #117391;
+            margin: 0;
+        }
+
+        .button-cerrarsesion {
+            align-items: center;
+            background-image: linear-gradient(144deg, #117391, #545151 50%, #645f5f);
+            border: 0;
+            border-radius: 8px;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            display: flex;
+            font-family: Phantomsans, sans-serif;
+            font-size: 18px; /* Ajustar el tamaño para pantallas grandes */
+            justify-content: center;
+            line-height: 1em;
+            min-width: 140px;
+            padding: 19px 24px;
+            text-decoration: none;
+            user-select: none;
+            white-space: nowrap;
+            cursor: pointer;
+            margin: 15px 0; /* Espaciado vertical entre botones */
+        }
+
+        .button-63 {
+            align-items: center;
+            background-image: linear-gradient(144deg, #117391, #16BFE8 50%, #D7D7D7);
+            border: 0;
+            border-radius: 8px;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            display: flex;
+            font-family: Phantomsans, sans-serif;
+            font-size: 18px; /* Ajustar el tamaño para pantallas grandes */
+            justify-content: center;
+            line-height: 1em;
+            min-width: 140px;
+            padding: 19px 24px;
+            text-decoration: none;
+            user-select: none;
+            white-space: nowrap;
+            cursor: pointer;
+            margin: 15px 0; /* Espaciado vertical entre botones */
+        }
+
+        .button-63:active,
+        .button-63:hover {
+            outline: 0;
+        }
+
+        @media (min-width: 768px) {
+            .button-63 {
+                font-size: 35px; /* Un tamaño ligeramente mayor para pantallas grandes */
+                min-width: 180px;
+            }
+        }
+
+        /* Estilo para pantallas pequeñas */
+        @media (max-width: 767px) {
+            .button-63 {
+                width: 200%;
+                font-size: 60px; /* Aumentar tamaño de la fuente en pantallas pequeñas */
+                min-width: 300px; /* Hacer los botones más anchos */
+                padding: 30px 40px; /* Aumentar el padding para hacer los botones más grandes */
+            }
+        }
+
+        /* Estilo para organizar los botones en una columna */
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Cambiar a columna */
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Espacio entre los botones */
+            padding-top: 95px; /* Ajusta el espacio desde arriba */
+            z-index: 2;
+        }
+
+        .button-container a {
+            width: 100%; /* Hacer que los botones ocupen el 100% del ancho del contenedor */
+            max-width: 300px; /* Limitar el ancho máximo del botón */
+            text-align: center;
+        }
+
+        .linea-divisoria {
+            width: 40%; /* Ajusta el ancho según el tamaño deseado */
+            height: 3px; /* El grosor de la línea */
+            background-color: #000000; /* Color de la línea */
+            background-image: linear-gradient(144deg, #ffffff, #16BFE8 50%, #ffffff);
+            margin: 10px auto; /* Centra la línea y agrega margen vertical */
+        }
+
+        .profile-container {
+            max-width: 800px;  /* Define un ancho máximo */
+            margin: 0 auto;    /* Centra el contenedor horizontalmente */
+            padding: 20px;     /* Espaciado interno */
+            background-color: #f9f9f9;  /* Fondo claro */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+        }
+        
+        /* Títulos centrados */
+        .profile-container h2 {
+            text-align: center;
+            color: #333;  /* Color de texto oscuro */
+            font-size: 24px;  /* Tamaño de fuente */
+            margin-bottom: 10px;  /* Espaciado debajo del título */
+        }
+        
+        /* Estilo de los párrafos */
+        .profile-container p {
+            text-align: center;
+            font-size: 16px;  /* Tamaño de fuente */
+            color: #666;  /* Color de texto gris */
+            margin: 5px 0;  /* Espaciado entre los párrafos */
+        }
+        
+        /* Estilo para el formulario dentro del contenedor (si es necesario) */
+        .profile-container form {
+            margin-top: 20px; /* Espaciado superior */
+            display: flex;
+            flex-direction: column; /* Organiza los elementos del formulario en columna */
+        }
+        
+        .profile-container form input,
+        .profile-container form select,
+        .profile-container form textarea {
+            padding: 10px;
+            margin: 10px 0; /* Espaciado entre los campos */
+            border-radius: 5px; /* Bordes redondeados */
+            border: 1px solid #ddd; /* Borde sutil */
+            font-size: 16px; /* Tamaño de fuente */
+        }
+        
+        .profile-container form button {
+            background-color: #4CAF50;  /* Fondo verde */
+            color: white;  /* Texto blanco */
+            padding: 10px 20px;  /* Espaciado interno */
+            border: none;  /* Sin borde */
+            border-radius: 5px;  /* Bordes redondeados */
+            cursor: pointer;  /* Aparece el cursor de mano */
+            font-size: 16px;  /* Tamaño de fuente */
+            transition: background-color 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="background-wrap">
+        <div class="bubble x1"></div>
+        <div class="bubble x2"></div>
+        <div class="bubble x3"></div>
+        <div class="bubble x4"></div>
+        <div class="bubble x5"></div>
+        <div class="bubble x6"></div>
+        <div class="bubble x7"></div>
+        <div class="bubble x8"></div>
+        <div class="bubble x9"></div>
+        <div class="bubble x10"></div>
+        <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="520" height="310" 
+             style="position: absolute; top: 50%; left: 50%; opacity: 0.7; transform: translate(-50%, -50%); z-index: 1;">
+    </div>
+
+    <!-- Contenedor del título tipo header -->
+    <div class="header-container">
+        <h1>Bienvenidos al menú de empleados CPD</h1>
+    </div>
+
+
+    <div class="profile-container">
+    <h2>Perfil de EMPLEADO: {{ user.nombre }} {{ user.apellido }}</h2>
+    <p>Datos del Usuario</p>
+    <p>RUT: {{ user.rut }}</p>
+    <p>Correo: {{ user.correo_electronico }}</p>
+    <p>Cargo: {{ user.cargo }}</p>
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button-cerrarsesion">Cerrar sesión</button>
+    </form>
+    </div>
+    <div class="button-container">
+        <a href="{% url 'dashboard' %}" class="button-63">Dashboard</a>
+        <a href="{% url 'menu_principal' %}" class="button-63">Abastecimiento</a>
+        <a href="{% url 'menu_admin_empleado' %}" class="button-63">Admin</a>
+        <a href="{% url 'menu_servicio' %}" class="button-63">Servicio</a>
+        <a href="{% url 'reserva:menu_reserva' %}" class="button-63">Agenda</a>
+        <a href="/" class="button-63">Inicio</a>
+    </div>
+    <div>
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Crear Stock{% endblock %}
+
+{% block content %}
+    <style>
+        /* Estilos previos */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border: 1px solid #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+            opacity: 0.95;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor personalizado */
+        .create-product-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .create-product-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .create-product-container form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .create-product-container form input,
+        .create-product-container form select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .create-product-container form button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+            margin: 10px 0;
+        }
+
+        .create-product-container form button:hover {
+            background-color: #117391;
+        }
+
+        .create-product-container form button:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+    </style>
+
+    <div class="create-product-container">
+        <h2>Crear Stock</h2>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <td>{{ form.id_producto }}</td>
+                </tr>
+                <tr>
+                    <th>Servicio</th>
+                    <td>{{ form.id_servicio }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad Necesaria</th>
+                    <td>{{ form.cantidad_necesaria }}</td>
+                </tr>
+            </table>
+            <button type="submit">Crear Stock</button>
+        </form>
+        <a href="{% url 'stock_list' %}" class="btn">Volver a la lista de stocks</a>
+    </div>
+{% endblock %}

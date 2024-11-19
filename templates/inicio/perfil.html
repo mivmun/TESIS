@@ -1,0 +1,20 @@
+{% extends 'menu_cliente.html' %}
+
+{% block title %}Perfil de Cliente{% endblock %}
+
+{% block content %}
+    <div class="header-container">
+        <h1>Bienvenido al perfil de {{ user.nombre }}</h1>
+        <h2>Información de tu cuenta</h2>
+    </div>
+
+    <!-- Formulario para editar el perfil del cliente -->
+    <div class="form-container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button-63">Actualizar Perfil</button>
+        </form>
+    </div>
+
+{% endblock %}

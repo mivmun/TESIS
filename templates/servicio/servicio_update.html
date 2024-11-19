@@ -1,0 +1,93 @@
+{% extends "servicio/menu_servicio.html" %}
+
+{% block content %}
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+
+      .update-service-form {
+          margin: 20px;
+          padding: 20px;
+          background-color: #f9f9f9d2;
+          border-radius: 8px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .update-service-form h2 {
+          font-size: 24px;
+          margin-bottom: 20px;
+          text-align: center;
+          color: #333;
+      }
+
+      .update-service-form form {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+      }
+
+      .update-service-form label {
+          font-weight: bold;
+          color: #555;
+      }
+
+      .update-service-form input, .update-service-form select, .update-service-form textarea {
+          padding: 10px;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+      }
+
+      .update-service-form button {
+          padding: 10px 20px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #16BFE8;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          box-shadow: 0 4px #999999b1;
+          transition: background-color 0.3s;
+      }
+
+      .update-service-form button:hover {
+          background-color: #117391;
+      }
+
+      .update-service-form button:active {
+          background-color: #D7D7D7;
+          box-shadow: 0 2px #666;
+          transform: translateY(2px);
+      }
+
+      /* Media Query para pantallas más pequeñas */
+      @media screen and (max-width: 600px) {
+          .update-service-form {
+              padding: 15px;
+          }
+
+          .update-service-form h2 {
+              font-size: 20px;
+          }
+
+          .update-service-form button {
+              font-size: 18px;
+              padding: 12px;
+          }
+      }
+  </style>
+
+  <div class="update-service-form">
+      <h2>Actualizar Servicio</h2>
+      <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Actualizar Servicio</button>
+      </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "abastecimiento/menu_principal.html" %}
+
+{% block title %}Detalle del Producto{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #16BFE8;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px #999999b1;
+        }
+        .btn:hover {
+            background-color: #117391;
+        }
+        .btn:active {
+            background-color: #D7D7D7;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        /* Media Query para pantallas más pequeñas */
+        @media screen and (max-width: 600px) {
+            .btn {
+                width: 100%;
+                padding: 15px 0;
+                font-size: 18px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Estilo del contenedor */
+        .product-detail-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9d2;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-detail-container h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .product-detail-container table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <!-- Contenedor de la página -->
+    <div class="container">
+        <div class="product-detail-container">
+            <h1>Detalle del Producto</h1>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ producto.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Unidad de Medida</th>
+                    <td>{{ producto.unidad_medida }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad</th>
+                    <td>{{ producto.cantidad }}</td>
+                </tr>
+                <!-- Añade más filas según los atributos de tu producto -->
+            </table>
+            <a href="{% url 'producto_list' %}" class="btn">Volver a la lista</a>
+            <a href="{% url 'producto_update' producto.pk %}" class="btn">Editar</a>
+            <a href="{% url 'producto_delete' producto.pk %}" class="btn">Eliminar</a>
+        </div>
+    </div>
+{% endblock %}

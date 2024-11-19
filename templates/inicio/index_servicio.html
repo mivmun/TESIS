@@ -1,0 +1,368 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Mi Proyecto</title>
+    <link rel="stylesheet" href="{% static 'style_index_servicio.css' %}">
+    <style>
+        /* Estilos para el contenedor y el carrusel */
+        .container {
+            max-width: 700px; /* Ajusta el tamaño del contenedor */
+            margin: 70px auto; /* Aumenta el margen vertical */
+            padding: 30px 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.197);
+            border-radius: 8px;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .carousel-item {
+            min-width: 99%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Estilos para la lista dentro del carrusel */
+        .carousel-item ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 10px;
+        }
+
+        .carousel-item li {
+            padding: 10px 0;
+            font-size: 1rem;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .carousel-item li:last-child {
+            border-bottom: none;
+        }
+
+        /* Añadir un icono de lista más atractivo */
+        .carousel-item li::before {
+            content: '○'; /* Círculo */
+            color: #fbfbfb;
+            margin-right: 10px;
+        }
+        
+
+        /* Modalidad y precio */
+        .modalidad-precio {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .modalidad-precio p {
+            margin: 8px 0;
+        }
+
+        .modalidad-precio strong {
+            color: #000000c2;
+        }
+
+        /* Botones de navegación */
+        .carousel-nav {
+            position: absolute;
+            left: 50%; /* Centrar los botones */
+            transform: translateX(-50%); /* Ajustar para que estén centrados */
+        }
+
+        /* Estilos de los botones de navegación */
+        .carousel-nav button {
+            background: linear-gradient(45deg, #11739175, #16bee875); /* Degradado atractivo */
+            color: white;
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un toque 3D */
+            transition: all 0.3s ease; /* Transición suave */
+        }
+
+        /* Cambiar el fondo y agregar sombra cuando el cursor esté sobre el botón */
+        .carousel-nav button:hover {
+            background: linear-gradient(45deg, #11739177, #16bee879); /* Invertir el degradado */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombras más pronunciadas */
+            transform: scale(1.1); /* Aumenta el tamaño ligeramente */
+        }
+
+        /* Cambiar el fondo y agregar sombra cuando el botón esté presionado */
+        .carousel-nav button:active {
+            background: linear-gradient(45deg, #11739177, #16bee879); /* Mantener el fondo */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil al presionar */
+            transform: scale(1); /* Normaliza el tamaño */
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #D7D7D7;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            /* Ajuste de la barra de navegación */
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 10px;
+            }
+
+            .nav-links li {
+                margin: 5px 0;
+            }
+
+            /* Carrusel */
+            .carousel {
+                width: 100%;
+                margin: 0 10px;
+                height: 250px;
+            }
+
+            .carousel-item img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+            .carousel-item li {
+                font-size: 0.9rem;
+            }
+
+            .carousel-nav {
+                position: absolute;
+                left: 50%; /* Centrar los botones */
+                transform: translateX(-50%); /* Ajustar para que estén centrados */
+            }
+
+            /* Ajuste de las tarjetas (servicios) */
+            .container {
+                grid-template-columns: 1fr; /* Una columna para móviles */
+                gap: 20px;
+                margin: 20px 5px;
+            }
+
+            .card {
+                height: auto;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .card h2 {
+                font-size: 18px; /* Reducido para móviles */
+                margin: 10px 0;
+            }
+
+            .card-text {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            /* Botones en el pie de página */
+            .social-icons {
+                display: flex;
+                gap: 10px;
+            }
+
+            .social-icons a {
+                font-size: 16px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{% static 'LOGO_CPD_PNG.png' %}" alt="Logo" width="120" height="80"/>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'index_servicio' %}">Services</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenedor principal del carrusel -->
+    <div class="container">
+        <h1 class="titulo">NUESTROS SERVICIOS</h1>
+        <div class="carousel-container">
+            <div class="carousel-inner">
+                <!-- Servicio 1 -->
+                <div class="carousel-item">
+                    <h3>Servicio BRONCE</h3>
+                    <img src="{% static 'imagen_carrusel_4.jpg' %}" alt="Servicio 1">
+                    <ul>
+                        <h3>DESCRIPCION</h3>
+                        <li>Pre lavado Snow Foam</li>
+                        <li>Renovador de neumáticos</li>
+                        <li>Aspirado interior</li>
+                    </ul>
+                    <!-- Modalidad y precio debajo de la descripción -->
+                    <div class="modalidad-precio">
+                        <p><strong>Modalidad:</strong> Domicilio/Taller</p>
+                        <p><strong>Valor:</strong> Desde los $13.000</p>
+                    </div>
+                </div>
+                <!-- Servicio 2 -->
+                <div class="carousel-item">
+                    <h3>Servicio PREMIUM</h3>
+                    <img src="{% static 'imagen_carrusel_2.jpg' %}" alt="Servicio 2">
+                    <ul>
+                        <h3>DESCRIPCION</h3>
+                        <li>Servicio Bronce completo</li>
+                        <li>Limpieza de llantas</li>
+                        <li>Hidratación de plásticos exteriores</li>
+                        <li>Sanitizado interior/ductos de aire</li>
+                        <li>Hidratación de tableros interiores</li>
+                    </ul>
+                    <!-- Modalidad y precio debajo de la descripción -->
+                    <div class="modalidad-precio">
+                        <p><strong>Modalidad:</strong> Domicilio/Taller</p>
+                        <p><strong>Valor:</strong> Desde los $18.000</p>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="carousel-item">
+                    <h3>Servicio GOLD</h3>
+                    <img src="{% static 'imagen_carrusel_3.jpg' %}" alt="Servicio 3">
+                    <ul>
+                        <h3>DESCRIPCION</h3>
+                        <li>Servicio Bronce completo</li>
+                        <li>Servicio Premium completo</li>
+                        <li>Descontaminación férrica de llantas y neumáticos</li>
+                        <li>Descontaminación química y mecánica de carrocería</li>
+                        <li>Renovador de neumáticos</li>
+                        <li>Hidratación de plásticos exteriores</li>
+                    </ul>
+                    <!-- Modalidad y precio debajo de la descripción -->
+                    <div class="modalidad-precio">
+                        <p><strong>Modalidad:</strong> Domicilio/Taller</p>
+                        <p><strong>Valor:</strong> Desde los $35.000</p>
+                    </div>
+                </div>
+                <!-- Servicio 4 -->
+                <div class="carousel-item">
+                    <h3>Limpieza de tapiz</h3>
+                    <img src="{% static 'imagen_carrusel_6.jpg' %}" alt="Servicio 4">
+                    <ul>
+                        <h3>DESCRIPCION</h3>
+                        <li>limpieza de tapiz profesional de inyección y extracción, ademas de vaporizacion o vapo-hidro. </li>
+                    </ul>
+                    <!-- Modalidad y precio debajo de la descripción -->
+                    <div class="modalidad-precio">
+                        <p><strong>Modalidad:</strong> Taller</p>
+                        <p><strong>Valor:</strong> Completo $60.000</p>
+                    </div>
+                </div>
+                <!-- Servicio 5 -->
+                <div class="carousel-item">
+                    <h3>Servicio Ceramico</h3>
+                    <img src="{% static 'image_carrusel_5.jpeg' %}" alt="Servicio 5">
+                    <ul>
+                        <h3>DESCRIPCION</h3>
+                        <li>base de nanopartículas que protegen la carroceria del vehiculo</li>
+                    </ul>
+                    <!-- Modalidad y precio debajo de la descripción -->
+                    <div class="modalidad-precio">
+                        <p><strong>Modalidad:</strong> Taller</p>
+                        <p><strong>Valor:</strong> Desde los $45.000</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de navegación -->
+            <div class="carousel-nav">
+                <button id="prevBtn">&#10094;</button>
+                <button id="nextBtn">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>© 2023 Mi Proyecto. Todos los derechos reservados.</p>
+        <div class="social-icons">
+            <a href="https://api.whatsapp.com/send/?phone=%2B56968068141&text&type=phone_number&app_absent=0" target="_blank">
+                <img src="{% static 'Whatsapp.png' %}" alt="WhatsApp" width="30" height="30">
+            </a>
+            <a href="https://www.instagram.com/carpremiumdetail?utm_source=ig_web_button_share_sheet&igshid=ZDNlZDc0MzIxNw==" target="_blank">
+                <img src="{% static 'instagram.png' %}" alt="Instagram" width="30" height="30">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+
+        function showItem(index) {
+            const carouselInner = document.querySelector('.carousel-inner');
+            carouselInner.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+            showItem(currentIndex);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+            showItem(currentIndex);
+        });
+    </script>
+</body>
+</html>
